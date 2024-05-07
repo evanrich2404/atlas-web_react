@@ -26,6 +26,14 @@ module.exports = {
         },
         use: [
           {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+              esModule: false,
+            },
+          },
+          {
             loader: 'image-webpack-loader',
             options: {
               bypassOnDebug: true,

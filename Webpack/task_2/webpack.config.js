@@ -6,6 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
+    assetModuleFilename: 'images/[name][ext]',
   },
   module: {
     rules: [

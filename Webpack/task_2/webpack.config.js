@@ -6,7 +6,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
-    assetModuleFilename: 'images/[name][ext]',
   },
   module: {
     rules: [
@@ -16,19 +15,16 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024, // 8kb
+          },
+        },
         generator: {
           filename: 'images/[name][ext]',
         },
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',
-              esModule: false,
-            },
-          },
           {
             loader: 'image-webpack-loader',
             options: {

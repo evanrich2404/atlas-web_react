@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl wget git vim locales build-essential tzdata lsof
 
 # Node JS
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
 RUN bash nodesource_setup.sh
 
 RUN apt-get update && apt-get install -y nodejs

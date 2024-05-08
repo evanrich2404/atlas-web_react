@@ -12,11 +12,11 @@ function App() {
           <h1>School dashboard</h1>
         </div>
       </header>
-      <body className="App-body">
+      <div className="App-body">
         <p>
           Login to access the full dashboard
         </p>
-      </body>
+      </div>
       <footer className="App-footer">
         <p>
           {getFooterCopy(true)} - {getFullYear()}

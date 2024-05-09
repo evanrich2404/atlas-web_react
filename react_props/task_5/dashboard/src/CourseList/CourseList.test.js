@@ -7,9 +7,29 @@ describe('CourseList component tests', () => {
     shallow(<CourseList />);
   });
 
-  it('renders the 5 different rows', () => {
-    const wrapper = shallow(<CourseList />);
-    expect(wrapper.find('thead').children()).toHaveLength(2);
-    expect(wrapper.find('tbody').children()).toHaveLength(3);
+  describe('With empty listCourses', () => {
+    beforeEach(() => {
+      courseList = shallow(<CourseList listCourses={[]} />);
+    });
+
+    it('renders correctly when listCourses is empty or not passed', () => {
+      expect(courseList.find('CourseListRow').props().textFirstCell).toEqual('No course available yet');
+    });
+  });
+
+  describe('With listCourses containing elements', () => {
+    const listCourses = [
+      { id: 1, name: 'ES6', credit: 60 },
+      { id: 2, name: 'Webpack', credit: 20 },
+      { id: 3, name: 'React', credit: 40 },
+    ];
+
+    beforeEach(() => {
+      courseList = shallow(<CourseList listCourses={listCourses} />);
+    });
+
+    it('renders correctly when listCourses contains elements', () => {
+      expect(courseList.find('CourseListRow')).toHaveLength(listCourses.length + 2); // +2 for header rows
+    });
   });
 });

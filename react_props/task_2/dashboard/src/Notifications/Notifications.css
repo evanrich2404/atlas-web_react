@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    border: 5px dotted #00003C;
+    border: 5px dotted #db0909;
     background-color: #f5f5f5;
     padding: 0.5rem;
   }
@@ -33,10 +33,10 @@
 
   }
 
-  .Notifications li[data-priority="default"] {
+  .Notifications li[data-notification-type="default"] {
     color: blue;
   }
 
-  .Notifications li[data-priority="urgent"] {
+  .Notifications li[data-notification-type="urgent"] {
     color: red;
   }

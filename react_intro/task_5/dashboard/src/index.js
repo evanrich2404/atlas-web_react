@@ -1,3 +1,22 @@
-// import './style.css';  // Assume you have a style.css file in src
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App/App";
+import Notifications from "./Notifications/Notifications";
 
-console.log('Webpack is working!');
+// Root App
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// Root Notifications
+const rootNotif = ReactDOM.createRoot(
+  document.getElementById("root-notifications")
+);
+rootNotif.render(
+  <React.StrictMode>
+    <Notifications />
+  </React.StrictMode>
+);

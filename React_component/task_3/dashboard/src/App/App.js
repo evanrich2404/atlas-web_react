@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
+import BodySection from '../BodySection/BodySection';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
 class App extends React.Component {
   constructor(props) {
@@ -34,7 +36,18 @@ class App extends React.Component {
         <Notifications />
         <div className="App">
           <Header />
-          {isLoggedIn ? <CourseList /> : <Login />}
+          {isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
+          <BodySection title="News from the School">
+            <p>Some random text</p>
+          </BodySection>
           <Footer />
         </div>
       </React.Fragment>

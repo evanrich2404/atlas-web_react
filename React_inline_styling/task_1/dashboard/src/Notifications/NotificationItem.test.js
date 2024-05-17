@@ -1,6 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import NotificationItem from './NotificationItem';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('NotificationItem component', () => {
   it('should call markAsRead with the right id when simulating a click', () => {

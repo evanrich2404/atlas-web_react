@@ -1,6 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CourseList from './CourseList';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('CourseList component tests', () => {
   let courseList;
@@ -15,7 +24,7 @@ describe('CourseList component tests', () => {
     });
 
     it('renders correctly when listCourses is empty or not passed', () => {
-      expect(courseList.find('CourseListRow').props().textFirstCell).toEqual('No course available yet');
+      expect(courseList.find('CourseListRow').at(2).prop('textFirstCell')).toEqual('No course available yet');
     });
   });
 
@@ -31,7 +40,7 @@ describe('CourseList component tests', () => {
     });
 
     it('renders correctly when listCourses contains elements', () => {
-      expect(courseList.find('CourseListRow')).toHaveLength(listCourses.length);
+      expect(courseList.find('CourseListRow')).toHaveLength(listCourses.length +2);
     });
   });
 });

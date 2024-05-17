@@ -1,6 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('Notifications component', () => {
   it('should call markAsRead with the right message when calling the function', () => {

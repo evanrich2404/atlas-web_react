@@ -1,8 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Notifications.css';
+import { StyleSheet, css } from 'aphrodite';
 import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
+
+const styles = StyleSheet.create({
+  notifications: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    border: '5px dotted #db0909',
+    backgroundColor: '#f5f5f5',
+    padding: '0.5rem',
+  },
+  notificationsButton: {
+    position: 'absolute',
+    top: '0.5rem',
+    right: '0.5rem',
+    border: 'none',
+    backgroundColor: 'transparent',
+    padding: '0.5rem',
+    cursor: 'pointer',
+  },
+  notificationsP: {
+    fontFamily: 'Galano Grotesque Alt, sans-serif',
+    fontWeight: '400',
+    padding: '0.5rem',
+    margin: '0',
+  },
+  notificationsLi: {
+    fontFamily: 'Galano Grotesque Alt, sans-serif',
+    padding: '0.5rem',
+    margin: '0',
+  },
+  notificationsLiDefault: {
+    color: 'blue',
+  },
+  notificationsLiUrgent: {
+    color: 'red',
+  },
+});
 
 class Notifications extends React.PureComponent {
   constructor(props) {
@@ -20,12 +59,13 @@ class Notifications extends React.PureComponent {
 
   render() {
     const { displayDrawer, listNotifications } = this.props;
+
     return (
       <>
         <div className="menuItem">Your notifications</div>
         {displayDrawer && (
-          <div className="Notifications">
-            <p>Here is the list of notifications</p>
+          <div className={css(styles.notifications)}>
+            <p className={css(styles.notificationsP)}>Here is the list of notifications</p>
             <ul>
               {listNotifications.length === 0 ? (
                 <NotificationItem value="No new notification for now" />
@@ -38,6 +78,10 @@ class Notifications extends React.PureComponent {
                     html={notification.html}
                     markAsRead={this.markAsRead}
                     id={notification.id}
+                    className={css(
+                      styles.notificationsLi,
+                      notification.type === 'default' ? styles.notificationsLiDefault : styles.notificationsLiUrgent
+                    )}
                   />
                 ))
               )}

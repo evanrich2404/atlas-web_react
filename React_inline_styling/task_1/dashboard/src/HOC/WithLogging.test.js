@@ -2,6 +2,15 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import WithLogging from './WithLogging';
 import Login from '../Login/Login';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('WithLogging HOC', () => {
   it('should call console.log on mount and on unmount with Component when the wrapped element is pure html', () => {

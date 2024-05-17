@@ -2,6 +2,15 @@
 import { getFullYear } from './utils';
 import { getFooterCopy } from './utils';
 import { getLatestNotification } from './utils';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('getFullYear', () => {
     it('returns correct year', () => {

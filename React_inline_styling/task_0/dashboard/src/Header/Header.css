@@ -1,0 +1,23 @@
+  /* #region HEADER */
+
+  .holberton_logo {
+    height: 12rem;
+    pointer-events: none;
+  }
+
+  .App-header {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .App-header h1 {
+    font-size: 3.5rem;
+    color: #db0909;
+    font-family: 'Galano Grotesque Alt', sans-serif;
+    font-weight: 800;
+  }
+
+  /* #endregion */

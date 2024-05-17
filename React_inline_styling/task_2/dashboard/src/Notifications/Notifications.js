@@ -30,17 +30,6 @@ const styles = StyleSheet.create({
     padding: '0.5rem',
     margin: '0',
   },
-  notificationsLi: {
-    fontFamily: 'Galano Grotesque Alt, sans-serif',
-    padding: '0.5rem',
-    margin: '0',
-  },
-  notificationsLiDefault: {
-    color: 'blue',
-  },
-  notificationsLiUrgent: {
-    color: 'red',
-  },
 });
 
 class Notifications extends React.PureComponent {
@@ -78,10 +67,6 @@ class Notifications extends React.PureComponent {
                     html={notification.html}
                     markAsRead={this.markAsRead}
                     id={notification.id}
-                    className={css(
-                      styles.notificationsLi,
-                      notification.type === 'default' ? styles.notificationsLiDefault : styles.notificationsLiUrgent
-                    )}
                   />
                 ))
               )}

@@ -10,7 +10,7 @@ import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
 const styles = StyleSheet.create({
-  app: {
+  body: {
     textAlign: 'center',
   },
   footer: {
@@ -53,7 +53,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Notifications />
-        <div className={css(styles.app)}>
+        <div className={css(styles.body)}>
           <Header />
           {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">

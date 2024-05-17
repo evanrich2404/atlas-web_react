@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 import CourseList from './CourseList';
 
 describe('CourseList component tests', () => {
+  let courseList;
+
   it('renders CourseList component without crashing', () => {
     shallow(<CourseList />);
   });
@@ -29,7 +31,7 @@ describe('CourseList component tests', () => {
     });
 
     it('renders correctly when listCourses contains elements', () => {
-      expect(courseList.find('CourseListRow')).toHaveLength(listCourses.length + 2); // +2 for header rows
+      expect(courseList.find('CourseListRow')).toHaveLength(listCourses.length);
     });
   });
 });

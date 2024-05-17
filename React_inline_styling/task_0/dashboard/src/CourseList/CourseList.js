@@ -1,15 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseListRow from './CourseListRow';
+import CourseShape from './CourseShape';
 import './CourseList.css';
-import './CourseShape';
-
-CourseList.propTypes = {
-  listCourses: PropTypes.arrayOf(CourseShape),
-};
-
-CourseList.defaultProps = {
-  listCourses: [],
-};
 
 const CourseList = ({ listCourses }) => {
   return (
@@ -33,6 +26,14 @@ const CourseList = ({ listCourses }) => {
       </tbody>
     </table>
   );
+};
+
+CourseList.propTypes = {
+  listCourses: PropTypes.arrayOf(CourseShape),
+};
+
+CourseList.defaultProps = {
+  listCourses: [],
 };
 
 export default CourseList;

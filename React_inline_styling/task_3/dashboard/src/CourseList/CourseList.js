@@ -4,17 +4,6 @@ import { StyleSheet, css } from 'aphrodite';
 import CourseListRow from './CourseListRow';
 import CourseShape from './CourseShape';
 
-const styles = StyleSheet.create({
-  courseList: {
-    width: '90%',
-    margin: '1rem auto',
-    border: '1px solid #e0e0e0',
-    borderCollapse: 'collapse',
-    fontFamily: "'Galano Grotesque Alt', sans-serif",
-    fontWeight: '400',
-  },
-})
-
 const CourseList = ({ listCourses }) => {
   return (
     <table id="CourseList" className={css(styles.courseList)}>
@@ -39,6 +28,19 @@ const CourseList = ({ listCourses }) => {
     </table>
   );
 };
+
+const styles = StyleSheet.create({
+  courseList: {
+    paddingLeft: '30px',
+    paddingTop: '40px',
+    width: '100%',
+    margin: '1rem auto',
+    border: '1px solid black',
+    borderCollapse: 'collapse',
+    fontFamily: "'Galano Grotesque Alt', sans-serif",
+    fontWeight: '400',
+  },
+});
 
 CourseList.propTypes = {
   listCourses: PropTypes.arrayOf(CourseShape),

@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import logo from '../assets/holberton_logo.png';
+import holberton_logo from '../assets/holberton_logo.png';
 
 const styles = StyleSheet.create({
-  holberton_logo: {
-    height: '12rem',
+  holbertonLogo: {
+    height: '15vmin',
     pointerEvents: 'none',
   },
   header: {
@@ -13,20 +13,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    paddingLeft: '20px',
+    paddingBottom: '20px',
+    borderBottom: '4px solid black',
+    fontSize: 'calc(9px + 1vmin)',
+    color: 'black',
+    fontFamily: 'Galano Grotesque Alt, sans-serif',
+    position: 'relative',
   },
 
   headerh1: {
-    fontSize: '3.5rem',
-    color: '#db0909',
-    fontFamily: "'Galano Grotesque Alt', sans-serif",
-    fontWeight: '800',
+    padding: '20px',
   },
 });
 
 const Header = () => {
   return (
     <header className={css(styles.header)}>
-      <img src={logo} className={css(styles.holbertonLogo)} alt="logo" />
+      <img src={holberton_logo} className={css(styles.holbertonLogo)} alt="logo" />
       <h1 className={css(styles.headerH1)}>School dashboard</h1>
     </header>
   );

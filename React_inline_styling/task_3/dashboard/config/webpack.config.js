@@ -10,18 +10,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"],
-            },
-            {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: "asset/resource",
-                use: [
-                    "file-loader",
-                    {
-                        loader: "image-webpack-loader",
-                    },
-                ],
             },
             {
                 test: /\.(js|jsx)$/,

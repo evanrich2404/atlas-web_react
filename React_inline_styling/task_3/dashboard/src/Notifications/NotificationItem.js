@@ -14,6 +14,14 @@ const styles = StyleSheet.create({
   notificationsLiUrgent: {
     color: 'red',
   },
+  responsiveNotificationsItem: {
+    '@media (max-width: 900px)': {
+      width: '100%',
+      borderBottom: '1px solid black',
+      fontSize: '20px',
+      padding: '10px 8px',
+    },
+  },
 });
 
 class NotificationItem extends React.PureComponent {
@@ -25,8 +33,10 @@ class NotificationItem extends React.PureComponent {
       type === 'default' ? styles.notificationsLiDefault : styles.notificationsLiUrgent
     );
 
+    const liResponsiveStyle = css(styles.responsiveNotificationsItem)
+
     return (
-      <li className={liStyle} data-notification-type={type} onClick={() => markAsRead(id)}>
+      <li className={(liStyle, liResponsiveStyle)} data-notification-type={type} onClick={() => markAsRead(id)}>
         {html ? <div dangerouslySetInnerHTML={html}></div> : value}
       </li>
     );

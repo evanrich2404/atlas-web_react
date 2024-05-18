@@ -2,70 +2,82 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
-  appBody: {
+  loginContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    minHeight: '100vh',
-    borderTop: '5px solid #db0909',
-    borderBottom: '5px solid #db0909',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '2rem',
   },
-  appBodyP: {
+  loginText: {
     fontFamily: 'Galano Grotesque Alt, sans-serif',
     fontWeight: '400',
     fontSize: '1.3rem',
-    margin: '1rem 2rem 1rem 4rem',
+    margin: '1rem 0',
   },
-  appBodyForm: {
+  loginForm: {
     fontFamily: 'Galano Grotesque Alt, sans-serif',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     fontWeight: '400',
     fontSize: '1.2rem',
-    margin: '0.5rem 2rem 1rem 4rem',
   },
-  appBodyLabel: {
+  loginLabel: {
     paddingRight: '0.5rem',
   },
-  appBodyInput: {
+  loginInput: {
     fontFamily: 'Galano Grotesque Alt, sans-serif',
     fontWeight: '400',
     fontSize: '1.3rem',
     margin: '0.5rem',
     padding: '0.2rem',
-    border: '1px solid #00003C',
+    border: '1px solid black',
     borderRadius: '2px',
     maxWidth: 'calc(50% - 2rem)',
   },
-  appBodyButton: {
+  loginButton: {
     fontFamily: 'Galano Grotesque Alt, sans-serif',
     fontWeight: '400',
     fontSize: '1.3rem',
     margin: '0.5rem',
     padding: '0.2rem',
-    border: '1px solid #00003C',
+    border: '1px solid black',
     borderRadius: '2px',
     backgroundColor: '#00003C',
     color: 'white',
+  },
+  responsiveForm: {
+    '@media (max-width: 900px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+  responsiveInput: {
+    '@media (max-width: 900px)': {
+      marginBottom: '10px',
+    },
+  },
+  responsiveButton: {
+    '@media (max-width: 900px)': {
+      width: '100%',
+    },
   },
 });
 
 const Login = () => {
   return (
-    <React.Fragment>
-      <div className={css(styles.appBody)}>
-        <p className={css(styles.appBodyP)}>Login to access the full dashboard</p>
-        <form className={css(styles.appBodyForm)}>
-          <label htmlFor="email" className={css(styles.appBodyLabel)}>Email: </label>
-          <input type="email" id="email" name="email" className={css(styles.appBodyInput)} />
-          <label htmlFor="password" className={css(styles.appBodyLabel)}>Password: </label>
-          <input type="password" id="password" name="password" className={css(styles.appBodyInput)} />
-          <button className={css(styles.appBodyButton)}>OK</button>
-        </form>
-      </div>
-    </React.Fragment>
+    <div className={css(styles.loginContainer)}>
+      <p className={css(styles.loginText)}>Login to access the full dashboard</p>
+      <form className={css(styles.loginForm, styles.responsiveForm)}>
+        <label htmlFor="email" className={css(styles.loginLabel, styles.responsiveInput)}>Email: </label>
+        <input type="email" id="email" name="email" className={css(styles.loginInput, styles.responsiveInput)} />
+        <label htmlFor="password" className={css(styles.loginLabel, styles.responsiveInput)}>Password: </label>
+        <input type="password" id="password" name="password" className={css(styles.loginInput, styles.responsiveInput)} />
+        <button className={css(styles.loginButton, styles.responsiveButton)}>OK</button>
+      </form>
+    </div>
   );
 };
 

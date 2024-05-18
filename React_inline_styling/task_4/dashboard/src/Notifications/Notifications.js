@@ -5,6 +5,27 @@ import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 import closeIcon from '../assets/close-icon.png';
 
+const bounceKeyFrames = {
+  '0%': {
+    transform: 'translateY(0px)',
+  },
+  '50%': {
+    transform: 'translateY(-5px)',
+  },
+  '100%': {
+    transform: 'translateY(5px)',
+  },
+};
+
+const opacityKeyFrames = {
+  'from': {
+    opacity: 0.5,
+  },
+  'to': {
+    opacity: 1,
+  },
+};
+
 const styles = StyleSheet.create({
   notifications: {
     position: 'relative',
@@ -21,6 +42,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Galano Grotesque Alt, sans-serif',
     padding: '10px',
     backgroundColor: 'white',
+    cursor: 'pointer',
+    float: 'right',
+    ':hover': {
+      animationName: [bounceKeyFrames, opacityKeyFrames],
+      animationDuration: '0.5s, 1s',
+      animationIterationCount: '3',
+    },
   },
   notificationsButton: {
     position: 'absolute',

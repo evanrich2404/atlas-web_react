@@ -24,9 +24,16 @@ class App extends React.Component {
         { id: 2, type: 'urgent', value: 'New resume available' },
         { id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
       ],
+      displayDrawer: false,
     },
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
+
+  handleNotificationsClick = () => {
+    this.setState((prevState) => ({
+      displayDrawer: !prevState.displayDrawer,
+    }));
+  };
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
@@ -44,11 +51,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoggedIn, displayDrawer } = this.props;
-    const { listCourses, listNotifications } = this.state;
+    const { isLoggedIn } = this.props;
+    const { listCourses, listNotifications, displayDrawer } = this.state;
     return (
       <React.Fragment>
-        <Notifications displayDrawer={displayDrawer} listNotifications={listNotifications} />
+        <Notifications displayDrawer={displayDrawer} listNotifications={listNotifications} handleNotificationsClick={this.handleNotificationsClick} />
         <div className={css(styles.App)}>
           <Header />
           {isLoggedIn ? (

@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   menuItem: {
     textAlign: 'right',
     fontFamily: 'Galano Grotesque Alt, sans-serif',
-    color: 'black',
     padding: '10px',
     backgroundColor: 'white',
   },
@@ -75,58 +74,41 @@ class Notifications extends React.PureComponent {
   // }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const { displayDrawer, listNotifications, handleNotificationsClick, } = this.props;
     console.log('listNotifications', listNotifications);
 
     return (
       <div>
-        <div className={css(styles.menuItem)}>Your notifications</div>
-        <div className={css(styles.responsiveNotifications, displayDrawer ? styles.Notifications : styles.hide)}>
-          {displayDrawer && (
-            <button className={css(styles.notificationsButton)} aria-label="Close" OnClick={() => console.log('Close button has been clicked')}>
+        <div className={css(styles.menuItem)}>
+          <button onClick={handleNotificationsClick}>Your notifications</button>
+        </div>
+        {displayDrawer && (
+          <div className={css(styles.notifications, styles.responsiveNotifications)}>
+            <button
+              className={css(styles.notificationsButton)}
+              aria-label="Close"
+              onClick={handleNotificationsClick}
+            >
               <img className={css(styles.img)} src={closeIcon} alt="Close" />
             </button>
-          )}
-          {displayDrawer ? (
             <ul>
               {listNotifications.map((notification) => (
-                <NotificationItem key={notification.id} markAsRead={this.markAsRead} {...notification} />
+                <NotificationItem
+                  key={notification.id}
+                  markAsRead={this.markAsRead}
+                  {...notification}
+                />
               ))}
             </ul>
-          ) : null}
-          {displayDrawer && listNotifications.length === 0 ? (
-            <p className={css(styles.notificationsP)}>No new notification for now</p>
-          ) : null}
-        </div>
+            {listNotifications.length === 0 && (
+              <p className={css(styles.notificationsP)}>No new notification for now</p>
+            )}
+          </div>
+        )}
       </div>
     );
   }
 }
-            // <div className={css(styles.notifications, styles.responsiveNotifications)}>
-            //   <p className={css(styles.notificationsP)}>Here is the list of notifications</p>
-            //   <ul>
-            //     {listNotifications.length === 0 ? (
-            //       <NotificationItem value="No new notification for now" />
-            //     ) : (
-            //       listNotifications.map(notification => (
-            //         <NotificationItem
-            //           key={notification.id}
-            //           type={notification.type}
-            //           value={notification.value}
-            //           html={notification.html}
-            //           markAsRead={this.markAsRead}
-            //           id={notification.id}
-            //         />
-            //       ))
-            //     )}
-            //   </ul>
-            // </div>
-//           )}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,

@@ -29,10 +29,12 @@ class App extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
-  handleNotificationsClick = () => {
-    this.setState((prevState) => ({
-      displayDrawer: !prevState.displayDrawer,
-    }));
+  handleDisplayDrawer = () => {
+    this.setState({ displayDrawer: true });
+  };
+
+  handleHideDrawer = () => {
+    this.setState({ displayDrawer: false });
   };
 
   componentDidMount() {
@@ -55,7 +57,12 @@ class App extends React.Component {
     const { listCourses, listNotifications, displayDrawer } = this.state;
     return (
       <React.Fragment>
-        <Notifications displayDrawer={displayDrawer} listNotifications={listNotifications} handleNotificationsClick={this.handleNotificationsClick} />
+        <Notifications
+          displayDrawer={displayDrawer}
+          listNotifications={listNotifications}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
+        />
         <div className={css(styles.App)}>
           <Header />
           {isLoggedIn ? (
@@ -105,17 +112,11 @@ const styles = StyleSheet.create({
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
-  displayDrawer: PropTypes.bool,
-  listCourses: PropTypes.array,
-  listNotifications: PropTypes.array,
   logOut: PropTypes.func,
 };
 
 App.defaultProps = {
   isLoggedIn: false,
-  displayDrawer: false,
-  listCourses: [],
-  listNotifications: [],
   logOut: () => {},
 };
 

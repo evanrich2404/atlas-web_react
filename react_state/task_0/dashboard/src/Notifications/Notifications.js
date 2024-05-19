@@ -102,20 +102,21 @@ class Notifications extends React.PureComponent {
   // }
 
   render() {
-    const { displayDrawer, listNotifications, handleNotificationsClick, } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
     console.log('listNotifications', listNotifications);
 
     return (
       <div>
         <div className={css(styles.menuItem)}>
-          <div onClick={handleNotificationsClick}>Your notifications</div>
+          <div onClick={handleDisplayDrawer}>Your notifications</div>
         </div>
         {displayDrawer && (
           <div className={css(styles.notifications, styles.responsiveNotifications)}>
             <div
               className={css(styles.notificationsButton)}
               aria-label="Close"
-              onClick={handleNotificationsClick}
+              data-testid="notifications-close-button"
+              onClick={handleHideDrawer}
             >
               <img className={css(styles.img)} src={closeIcon} alt="Close" />
             </div>
@@ -141,11 +142,15 @@ class Notifications extends React.PureComponent {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
 };
 
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
 };
 
 export default Notifications;

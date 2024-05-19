@@ -108,17 +108,17 @@ class Notifications extends React.PureComponent {
     return (
       <div>
         <div className={css(styles.menuItem)}>
-          <button onClick={handleNotificationsClick}>Your notifications</button>
+          <div onClick={handleNotificationsClick}>Your notifications</div>
         </div>
         {displayDrawer && (
           <div className={css(styles.notifications, styles.responsiveNotifications)}>
-            <button
+            <div
               className={css(styles.notificationsButton)}
               aria-label="Close"
               onClick={handleNotificationsClick}
             >
               <img className={css(styles.img)} src={closeIcon} alt="Close" />
-            </button>
+            </div>
             <ul>
               {listNotifications.map((notification) => (
                 <NotificationItem

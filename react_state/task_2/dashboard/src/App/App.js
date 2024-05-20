@@ -9,12 +9,14 @@ import CourseList from '../CourseList/CourseList.js';
 import BodySection from '../BodySection/BodySection.js';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.js';
 import { getLatestNotification } from '../utils/utils.js';
+import { defaultUser, AppContext } from './AppContext.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
+      user: defaultUser,
       listCourses: [
         { id: 1, name: 'ES6', credit: 60 },
         { id: 2, name: 'Webpack', credit: 20 },
@@ -27,6 +29,8 @@ class App extends React.Component {
       ],
     },
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   handleDisplayDrawer = () => {
@@ -52,38 +56,55 @@ class App extends React.Component {
     }
   }
 
+  logIn(email, password) {
+    this.setState({
+      user: {
+        email,
+        password,
+        isLoggedIn: true,
+      },
+    });
+  }
+
+  logOut() {
+    this.setState({
+      user: defaultUser,
+    });
+  }
+
   render() {
-    const { isLoggedIn } = this.props;
-    const { listCourses, listNotifications, } = this.state;
+    const { displayDrawer, user, listCourses, listNotifications, } = this.state;
     return (
-      <React.Fragment>
-        <Notifications
-          displayDrawer={this.state.displayDrawer}
-          listNotifications={listNotifications}
-          handleDisplayDrawer={this.handleDisplayDrawer}
-          handleHideDrawer={this.handleHideDrawer}
-        />
-        <div className={css(styles.App)}>
-          <Header />
-          {isLoggedIn ? (
-            <BodySectionWithMarginBottom title="Course list">
-              <CourseList listCourses={listCourses} />
-            </BodySectionWithMarginBottom>
-          ) : (
-            <BodySectionWithMarginBottom title="Log in to continue">
-              <Login />
-            </BodySectionWithMarginBottom>
-          )}
-          <div className={css(styles.BodySection)}>
-          <BodySection title="News from the School">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </BodySection>
+      <AppContext.Provider value={{ user, logOut: this.logOut}}>
+        <React.Fragment>
+          <Notifications
+            displayDrawer={displayDrawer}
+            listNotifications={listNotifications}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+          />
+          <div className={css(styles.App)}>
+            <Header />
+            {user.isLoggedIn ? (
+              <BodySectionWithMarginBottom title="Course list">
+                <CourseList listCourses={listCourses} />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom title="Log in to continue">
+                <Login logIn={this.logIn} />
+              </BodySectionWithMarginBottom>
+            )}
+            <div className={css(styles.BodySection)}>
+            <BodySection title="News from the School">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </BodySection>
+            </div>
+            <footer className={css(styles.Footer)}>
+              <Footer />
+            </footer>
           </div>
-          <footer className={css(styles.Footer)}>
-            <Footer />
-          </footer>
-        </div>
-      </React.Fragment>
+        </React.Fragment>
+      </AppContext.Provider>
     );
   }
 }

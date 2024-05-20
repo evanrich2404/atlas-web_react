@@ -44,4 +44,31 @@ describe('App component', () => {
     wrapper.instance().handleHideDrawer();
     expect(wrapper.state('displayDrawer')).toBe(false);
   });
+
+  it('should update the state correctly when calling logIn', () => {
+    const wrapper = shallow(<App />);
+    wrapper.instance().logIn('test@example.com', 'password');
+    expect(wrapper.state().user).toEqual({
+      email: 'test@example.com',
+      password: 'password',
+      isLoggedIn: true,
+    });
+  });
+
+  it('should update the state correctly when calling logOut', () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({
+      user: {
+        email: 'test@example.com',
+        password: 'password',
+        isLoggedIn: true,
+      },
+    });
+    wrapper.instance().logOut();
+    expect(wrapper.state().user).toEqual({
+      email: '',
+      password: '',
+      isLoggedIn: false,
+    });
+  });
 });

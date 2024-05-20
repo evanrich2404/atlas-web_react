@@ -73,7 +73,6 @@ class Login extends React.Component {
       email: '',
       password: '',
       enableSubmit: false,
-      isLoggedIn: false,
     };
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -84,7 +83,8 @@ class Login extends React.Component {
   handleLoginSubmit(event) {
     event.preventDefault();
     console.log('Form submitted');
-    this.setState({ isLoggedIn: true });
+    const { email, password } = this.state;
+    this.props.logIn(email, password);
   }
 
   handleChangeEmail(event) {

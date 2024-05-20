@@ -71,4 +71,19 @@ describe('App component', () => {
       isLoggedIn: false,
     });
   });
+
+  it('should update the state correctly when calling markNotificationAsRead', () => {
+    const wrapper = shallow(<App />);
+    const instance = wrapper.instance();
+    instance.setState({
+      listNotifications: [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+      ],
+    });
+    instance.markNotificationAsRead(2);
+    expect(wrapper.state('listNotifications')).toEqual([
+      { id: 1, type: 'default', value: 'New course available' },
+    ]);
+  });
 });

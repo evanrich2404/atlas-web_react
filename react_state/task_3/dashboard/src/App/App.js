@@ -31,6 +31,7 @@ class App extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
   handleDisplayDrawer = () => {
@@ -72,6 +73,12 @@ class App extends React.Component {
     });
   }
 
+  markNotificationAsRead(id) {
+    this.setState((prevState) => ({
+      listNotifications: prevState.listNotifications.filter((notification) => notification.id !== id),
+    }));
+  }
+
   render() {
     const { displayDrawer, user, listCourses, listNotifications, } = this.state;
     return (
@@ -82,6 +89,7 @@ class App extends React.Component {
             listNotifications={listNotifications}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
+            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.App)}>
             <Header />
@@ -99,7 +107,7 @@ class App extends React.Component {
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </BodySection>
             </div>
-            <footer className={css(styles.Footer)}>
+            <footer>
               <Footer />
             </footer>
           </div>
@@ -116,18 +124,6 @@ const styles = StyleSheet.create({
   },
   BodySection: {
     padding: '20px 40px',
-  },
-  Footer: {
-    borderTop: 'black 4px solid',
-    backgroundColor: 'white',
-    padding: '10px',
-    position: 'fixed',
-    bottom: '0',
-    width: '100%',
-    textAlign: 'center',
-    fontStyle: 'italic',
-    fontFamily: 'Galano Grotesque Alt, sans-serif',
-    color: 'black'
   },
 });
 

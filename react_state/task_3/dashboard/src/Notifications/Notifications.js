@@ -88,27 +88,14 @@ const styles = StyleSheet.create({
 });
 
 class Notifications extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-
-  // shouldComponentUpdate(nextProps) {
-  //   return nextProps.listNotifications.length > this.props.listNotifications.length;
-  // }
-
   render() {
-    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, markNotificationAsRead } = this.props;
     console.log('listNotifications', listNotifications);
 
     return (
-      <div>
-        <div className={css(styles.menuItem)}>
-          <div onClick={handleDisplayDrawer}>Your notifications</div>
+      <React.Fragment>
+        <div className={css(styles.menuItem)} data-testid="notifications-menu-item" onClick={handleDisplayDrawer}>
+          Your notifications
         </div>
         {displayDrawer && (
           <div className={css(styles.notifications, styles.responsiveNotifications)}>
@@ -120,21 +107,26 @@ class Notifications extends React.PureComponent {
             >
               <img className={css(styles.img)} src={closeIcon} alt="Close" />
             </div>
-            <ul>
-              {listNotifications.map((notification) => (
-                <NotificationItem
-                  key={notification.id}
-                  markAsRead={this.markAsRead}
-                  {...notification}
-                />
-              ))}
-            </ul>
-            {listNotifications.length === 0 && (
+            {listNotifications.length === 0 ? (
               <p className={css(styles.notificationsP)}>No new notification for now</p>
+            ) : (
+              <React.Fragment>
+                <ul>
+                  {listNotifications.map((notification) => (
+                    <NotificationItem
+                      key={notification.id}
+                      type={notification.type}
+                      value={notification.value}
+                      html={notification.html}
+                      markAsRead={() => markNotificationAsRead(notification.id)}
+                    />
+                  ))}
+                </ul>
+              </React.Fragment>
             )}
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -144,6 +136,7 @@ Notifications.propTypes = {
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
+  markNotificationAsRead: PropTypes.func,
 };
 
 Notifications.defaultProps = {
@@ -151,6 +144,7 @@ Notifications.defaultProps = {
   listNotifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
+  markNotificationAsRead: () => {},
 };
 
 export default Notifications;

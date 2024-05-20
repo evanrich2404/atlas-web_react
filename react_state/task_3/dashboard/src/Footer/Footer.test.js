@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Footer from './Footer';
+import { AppContext } from '../App/AppContext';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeAll(() => {
@@ -13,12 +14,29 @@ afterAll(() => {
 
 describe('Footer', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<Footer />);
+    const wrapper = shallow(
+      <AppContext.Provider value={{ user: { isLoggedIn: false } }}>
+        <Footer />
+      </AppContext.Provider>
+    );
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('renders the text "Copyright"', () => {
-    const wrapper = shallow(<Footer />);
-    expect(wrapper.text()).toContain('Copyright');
+  it('does not display the link when the user is logged out within the context', () => {
+    const wrapper = mount(
+      <AppContext.Provider value={{ user: { isLoggedIn: false } }}>
+        <Footer />
+      </AppContext.Provider>
+    );
+    expect(wrapper.find('a').length).toBe(0);
+  });
+
+  it('displays the link when the user is logged in within the context', () => {
+    const wrapper = mount(
+      <AppContext.Provider value={{ user: { isLoggedIn: true } }}>
+        <Footer />
+      </AppContext.Provider>
+    );
+    expect(wrapper.find('a').length).toBe(1);
   });
 });

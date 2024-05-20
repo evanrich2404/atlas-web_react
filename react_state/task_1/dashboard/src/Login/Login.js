@@ -66,19 +66,90 @@ const styles = StyleSheet.create({
   },
 });
 
-const Login = () => {
-  return (
-    <div className={css(styles.loginContainer)}>
-      <p className={css(styles.loginText)}>Login to access the full dashboard</p>
-      <form className={css(styles.loginForm, styles.responsiveForm)}>
-        <label htmlFor="email" className={css(styles.loginLabel, styles.responsiveInput)}>Email: </label>
-        <input type="email" id="email" name="email" className={css(styles.loginInput, styles.responsiveInput)} />
-        <label htmlFor="password" className={css(styles.loginLabel, styles.responsiveInput)}>Password: </label>
-        <input type="password" id="password" name="password" className={css(styles.loginInput, styles.responsiveInput)} />
-        <button className={css(styles.loginButton, styles.responsiveButton)}>OK</button>
-      </form>
-    </div>
-  );
-};
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      enableSubmit: false,
+      isLoggedIn: false,
+    };
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.checkFormValidity = this.checkFormValidity.bind(this);
+  }
+
+  handleLoginSubmit(event) {
+    event.preventDefault();
+    console.log('Form submitted');
+    this.setState({ isLoggedIn: true });
+  }
+
+  handleChangeEmail(event) {
+    const { value } = event.target;
+    this.setState(
+      prevState => ({
+        email: value,
+        enableSubmit: value !== '' && prevState.password !== '',
+      }),
+      this.checkFormValidity
+    );
+  }
+
+  handleChangePassword(event) {
+    const { value } = event.target;
+    this.setState(
+      prevState => ({
+        password: value,
+        enableSubmit: prevState.email !== '' && value !== '',
+      }),
+      this.checkFormValidity
+    );
+  }
+
+  checkFormValidity() {
+    const { email, password } = this.state;
+    this.setState({ enableSubmit: email !== '' && password !== '' });
+  }
+
+  render () {
+    const { email, password, enableSubmit } = this.state;
+    console.log('enableSubmit:', enableSubmit);
+
+    return (
+      <div className={css(styles.loginContainer)}>
+        <p className={css(styles.loginText)}>Login to access the full dashboard</p>
+        <form className={css(styles.loginForm, styles.responsiveForm)} onSubmit={this.handleLoginSubmit}>
+          <label htmlFor="email" className={css(styles.loginLabel, styles.responsiveInput)}>Email: </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className={css(styles.loginInput, styles.responsiveInput)}
+            value={email}
+            onChange={this.handleChangeEmail}
+          />
+          <label htmlFor="password" className={css(styles.loginLabel, styles.responsiveInput)}>Password: </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className={css(styles.loginInput, styles.responsiveInput)}
+            value={password}
+            onChange={this.handleChangePassword}
+          />
+          <input
+            type="submit"
+            disabled={!enableSubmit}
+            className={css(styles.loginButton, styles.responsiveButton)}
+            value="OK"
+          />
+        </form>
+      </div>
+    );
+  }
+}
 
 export default Login;

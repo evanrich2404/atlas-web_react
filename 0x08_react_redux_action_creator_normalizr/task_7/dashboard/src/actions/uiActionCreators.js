@@ -1,5 +1,6 @@
-import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE } from './uiActionTypes';
 import { bindActionCreators } from 'redux';
+import fetch from 'jest-fetch-mock';
 
 export const login = (email, password) => {
   return {
@@ -26,9 +27,40 @@ export const hideNotificationDrawer = () => {
   };
 };
 
+export const loginSuccess = () => {
+  return {
+    type: LOGIN_SUCCESS
+  };
+};
+
+export const loginFailure = () => {
+  return {
+    type: LOGIN_FAILURE
+  };
+};
+
+export const loginRequest = (email, password) => {
+  return async (dispatch) => {
+    dispatch(login(email, password));
+    try {
+      const response = await fetch('/login-success.json');
+      if (response.ok) {
+        dispatch(loginSuccess());
+      } else {
+        dispatch(loginFailure());
+      }
+    } catch (error) {
+      dispatch(loginFailure());
+    }
+  };
+};
+
 export const boundUIActionCreators = (dispatch) => bindActionCreators({
   login,
   logout,
   displayNotificationDrawer,
-  hideNotificationDrawer
+  hideNotificationDrawer,
+  loginSuccess,
+  loginFailure,
+  loginRequest
 }, dispatch);

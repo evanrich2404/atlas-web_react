@@ -1,5 +1,11 @@
-import { login, logout, displayNotificationDrawer, hideNotificationDrawer } from './uiActionCreators';
-import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import configureStore from 'redux-mock-store';
+import { thunk } from 'redux-thunk';
+import fetchMock from 'jest-fetch-mock';
+import { login, logout, displayNotificationDrawer, hideNotificationDrawer, loginRequest, loginSuccess, loginFailure } from './uiActionCreators';
+import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE } from './uiActionTypes';
+
+const middleware = [thunk];
+const mockStore = configureStore(middleware);
 
 describe('uiActionCreators', () => {
   it('login should create an action to login a user', () => {
@@ -31,5 +37,42 @@ describe('uiActionCreators', () => {
       type: HIDE_NOTIFICATION_DRAWER
     };
     expect(hideNotificationDrawer()).toEqual(expectedAction);
+  });
+});
+
+describe('loginRequest action', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
+  it('creates LOGIN and LOGIN_SUCCESS when login is successful', async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ user: 'test' })
+    });
+
+    const expectedActions = [
+      { type: LOGIN, user: { email: 'test@example.com', password: '123456' } },
+      { type: LOGIN_SUCCESS }
+    ];
+    const store = mockStore({});
+
+    await store.dispatch(loginRequest('test@example.com', '123456'));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('creates LOGIN and LOGIN_FAILURE when login fails', async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: false
+    });
+
+    const expectedActions = [
+      { type: LOGIN, user: { email: 'test@example.com', password: '123456' } },
+      { type: LOGIN_FAILURE }
+    ];
+    const store = mockStore({});
+
+    await store.dispatch(loginRequest('test@example.com', '123456'));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

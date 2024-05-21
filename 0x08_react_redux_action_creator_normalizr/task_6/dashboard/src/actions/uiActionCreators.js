@@ -1,4 +1,5 @@
 import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import { bindActionCreators } from 'redux';
 
 export const login = (email, password) => {
   return {
@@ -24,3 +25,10 @@ export const hideNotificationDrawer = () => {
     type: HIDE_NOTIFICATION_DRAWER
   };
 };
+
+export const boundUIActionCreators = (dispatch) => bindActionCreators({
+  login,
+  logout,
+  displayNotificationDrawer,
+  hideNotificationDrawer
+}, dispatch);

@@ -1,4 +1,5 @@
 import { SELECT_COURSE, UNSELECT_COURSE } from './courseActionTypes';
+import { bindActionCreators } from 'redux';
 
 export const selectCourse = (index) => {
   return {
@@ -13,3 +14,8 @@ export const unSelectCourse = (index) => {
     index
   };
 };
+
+export const boundCourseActionCreators = (dispatch) => bindActionCreators({
+  selectCourse,
+  unSelectCourse,
+}, dispatch);

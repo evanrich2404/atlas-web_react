@@ -1,4 +1,4 @@
-import uiReducer from "./uiReducers";
+import uiReducer from "./uiReducer";
 
 const initialState = {
   isNotificationDrawerVisible: false,

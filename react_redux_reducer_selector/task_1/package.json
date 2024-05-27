@@ -33,6 +33,7 @@
     "aphrodite": "^2.4.0",
     "fetch-mock": "^9.11.0",
     "image-webpack-loader": "^8.1.0",
+    "immutable": "^4.3.6",
     "jest-fetch-mock": "^3.0.3",
     "node-fetch": "^3.3.2",
     "normalizr": "^3.6.2",

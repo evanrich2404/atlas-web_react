@@ -28,3 +28,8 @@ export const getAllNotificationsByUser = (userId) => {
 
 // Export the normalized data
 export { normalizedData };
+
+// New function to normalize notifications for the reducer
+export const notificationsNormalizer = (data) => {
+  return normalize(data, [notification]);
+};
